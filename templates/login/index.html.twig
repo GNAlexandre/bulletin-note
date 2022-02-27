@@ -8,21 +8,31 @@
     {% endif %}
 
 
-
+<body class="body">
+    <div class="form-signin">
     <form action="{{ path('login') }}" method="post">
+        <img src="images/icone_catho.jpg" alt="logo_catho"><br>
+
         <label for="username">Email:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}"/>
-
+        <br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="_password"/>
-
+        <br>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
         {# If you want to control the URL the user is redirected to on success
         <input type="hidden" name="_target_path" value="/account"/> #}
 
-        <button type="submit">login</button>
+        <button type="submit">login</button><br>
     </form>
+        <a href="{{ '/register'}}">
+            <button>Inscription</button>
+        </a>
 
-    <!--<code><a href="{{ '/register'}}">Inscription</a></code></li> Redirection vers autre page grâce à la route-->
+
+    <p class="copy">&copy; 2021</p>
+</div>
+
+
 {% endblock %}

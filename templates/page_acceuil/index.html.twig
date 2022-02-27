@@ -9,7 +9,7 @@
 </style>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="page_acceuil">Acceuil</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/logout">Deconnexion</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
@@ -38,23 +38,38 @@
                 </li>
             </ul>
         </div>
-    </nav>
+    </nav><br>
 
 
     <!-- Fin du Bootstrap-->
 
-<div class="example-wrapper">
-    <h1>Bienvenu à la page d'acceuil</h1>
+<body class="body2">
+    <h1>Bienvenu
+        {% if Login[0]!=null and Login[0].role=="Enseignant" %} <!--Si c'est un professeur-->
+            {{ Login[0].name }} Role {{ Login[0].role }} ({{ Login[0].id_matiere}})
 
-    <ul>
-        <li><code><a href="{{ '/enseignant'}}">Enseignant</a></code></li><!--Redirection vers autre page grâce à la route-->
-        <li><code><a href="{{ '/eleve'}}">Eleve</a></code></li><!--Redirection vers autre page grâce à la route-->
+
+
+         {% else %} <!--Si c'est un Eleve-->
+             {{ Login[0].nom }} ({{ Login[0].role }}) Classe N° {{ Login[0].IdClasseExt}}<br><br>
+             <a href="{{ '/eleve'}}">
+                 <button>Note</button>
+             </a><!--Redirection vers autre page grâce à la route-->
+        {% endif %}</h1>
+
+
+
+
+
 
         {% if is_granted('ROLE_ADMIN') %} {# permet de verifier si s'est un ADMIN #}
+        <ul>
+            <li><code><a href="{{ '/enseignant'}}">Enseignant</a></code></li><!--Redirection vers autre page grâce à la route-->
             <li><code><a href="{{ '/register'}}">Ajouter une nouvelle entite</a></code></li><!--Redirection vers autre page grâce à la route-->
             <li><code><a href="{{ '/register_prof'}}">Ajouter un eleve/enseignant</a></code></li><!--Redirection vers autre page grâce à la route-->
+        </ul>
         {% endif %}
 
-    </ul>
-</div>
+    </body>
+
 {% endblock %}

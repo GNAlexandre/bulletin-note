@@ -23,11 +23,6 @@ class Enseignant
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=30)
-     */
-    private $id_matiere;
-
-    /**
      * @ORM\Column(type="string", length=20)
      */
     private $role;
@@ -36,6 +31,13 @@ class Enseignant
      * @ORM\Column(type="string", length=40)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="integer", length=30)
+     */
+    private $id_matiere;
+
+
 
     public function getId(): ?int
     {
@@ -50,18 +52,6 @@ class Enseignant
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getId_Matiere(): ?int
-    {
-        return $this->id_matiere;
-    }
-
-    public function setId_Matiere(int $id_matiere): self
-    {
-        $this->id_matiere = $id_matiere;
 
         return $this;
     }
@@ -89,4 +79,17 @@ class Enseignant
 
         return $this;
     }
+
+    public function getId_Matiere(): ?int
+    {
+        return $this->id_matiere;
+    }
+
+    public function setId_Matiere(int $id_matiere): self
+    {
+        $this->id_matiere = $id_matiere;
+
+        return $this;
+    }
+
 }

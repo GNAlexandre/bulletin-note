@@ -11,5 +11,27 @@
 <div class="example-wrapper">
     <h1>Page des Eleves✅</h1>
 
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %} {# permet de verifier la connection #}
+        <p>Username: {{ app.user.username }}</p>
+    {% endif %}
+    <table>
+        <tr>
+            <td> Nom </td>
+            <td> Prenom</td>
+        </tr>
+
+        {% for entite in Eleve  %}
+
+            <tr>
+                <td>{{ entite.nom }}</td>
+                <td>{{ entite.prenom }}</td>
+
+
+            </tr>
+
+
+        {% endfor %}
+    </table>
+
 </div>
 {% endblock %}

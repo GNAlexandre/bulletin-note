@@ -14,11 +14,23 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %} {# permet de verifier la connection #}
         <p>Username: {{ app.user.username }}</p>
     {% endif %}
+    <table>
+        <tr>
+            <td> Nom de l'Enseignant</td>
+            <td> Matiere de l'Enseignant</td>
+        </tr>
 
     {% for entite in Enseignants %}
-    <ul>
-        {{ entite.name }}
-    </ul>
+
+        <tr>
+            <td>{{ entite.name }}</td>
+            <td>{{ entite.id_matiere }}</td>
+
+
+        </tr>
+
+
     {% endfor %}
+    </table>
 </div>
 {% endblock %}

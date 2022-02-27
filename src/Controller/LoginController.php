@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use http\Client\Curl\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +22,7 @@ class LoginController extends AbstractController
 
 
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+
             return $this->redirectToRoute('page_acceuil');//redirection pour symfony
         }
 

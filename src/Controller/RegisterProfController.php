@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Enseignant;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,8 +27,8 @@ class RegisterProfController extends AbstractController
             $projet = new Enseignant();
             $projet->setName($get['name']);
             $projet->setId_Matiere($get['id_matiere']);
-            $projet->setRole($get['role']);
-            $projet->setPassword($get['password']);
+            $projet->setRole("Enseignant");
+            $projet->setPassword("test");
 
 
             $entityManager->persist($projet); //prépare pour l'enregistrement dans la base de données
