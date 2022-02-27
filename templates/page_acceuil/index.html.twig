@@ -17,7 +17,7 @@
         <li><code><a href="{{ '/eleve'}}">Eleve</a></code></li><!--Redirection vers autre page grâce à la route-->
 
         {% if is_granted('ROLE_ADMIN') %} {# permet de verifier si s'est un ADMIN #}
-            <li><code><a href="{{ '/register'}}">Ajouter un eleve/enseignant</a></code></li><!--Redirection vers autre page grâce à la route-->
+            <li><code><a href="{{ '/register'}}">Ajouter une nouvelle entite</a></code></li><!--Redirection vers autre page grâce à la route-->
             <li><code><a href="{{ '/register_prof'}}">Ajouter un eleve/enseignant</a></code></li><!--Redirection vers autre page grâce à la route-->
         {% endif %}
 
