@@ -19,23 +19,6 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/logout">Deconnexion</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
             </ul>
         </div>
     </nav><br>
@@ -46,27 +29,27 @@
 <body class="body2">
     <h1>Bienvenu
         {% if Login[0]!=null and Login[0].role=="Enseignant" %} <!--Si c'est un professeur-->
-            {{ Login[0].name }} Role {{ Login[0].role }} ({{ Login[0].id_matiere}})
+            {{ Login[0].name }} <br>
+            Role {{ Login[0].role }} ({{ Login[1].getNameMatiere}})
 
+        {% endif %}
 
-
-         {% else %} <!--Si c'est un Eleve-->
+        {% if Login[0]!=null and Login[0].role=="Eleve" %} <!--Si c'est un Eleve-->
              {{ Login[0].nom }} ({{ Login[0].role }}) Classe N° {{ Login[0].IdClasseExt}}<br><br>
              <a href="{{ '/eleve'}}">
                  <button>Note</button>
              </a><!--Redirection vers autre page grâce à la route-->
-        {% endif %}</h1>
+        {% endif %}
 
 
 
-
-
-
-        {% if is_granted('ROLE_ADMIN') %} {# permet de verifier si s'est un ADMIN #}
+        {% if is_granted('ROLE_ADMIN') %} {# permet de verifier si s'est un ADMIN et donc le directeur #}
+            Monsieur le Directeur </h1>
         <ul>
-            <li><code><a href="{{ '/enseignant'}}">Enseignant</a></code></li><!--Redirection vers autre page grâce à la route-->
+            <li><code><a href="{{ '/enseignant'}}">Liste des Enseignants</a></code></li><!--Redirection vers autre page grâce à la route-->
             <li><code><a href="{{ '/register'}}">Ajouter une nouvelle entite</a></code></li><!--Redirection vers autre page grâce à la route-->
-            <li><code><a href="{{ '/register_prof'}}">Ajouter un eleve/enseignant</a></code></li><!--Redirection vers autre page grâce à la route-->
+            <li><code><a href="{{ '/register_prof'}}">Ajouter un enseignant</a></code></li><!--Redirection vers autre page grâce à la route-->
+            <li><code><a href="{{ '/register_eleve'}}">Ajouter un eleve</a></code></li>
         </ul>
         {% endif %}
 

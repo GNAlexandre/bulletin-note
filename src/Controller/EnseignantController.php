@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Enseignant;
+use App\Entity\Matiere;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,14 @@ class EnseignantController extends AbstractController
      */
     public function index(EntityManagerInterface $em): Response
     {
-        $Enseignants=$em->getRepository(Enseignant::class)->findAll();
+        $Enseignants[0]=$em->getRepository(Enseignant::class)->findAll();
+        $nb=0;
+        $Enseignants[1]=[];
+        foreach ($Enseignants[0] as $enseignant){
+            $Enseignants[1][$nb]= $em->getRepository(Matiere::class)->findOneBy(['id' => $enseignant->getId_Matiere()]);
+            $nb++;
+        }
+        dump($Enseignants);
 
 
         return $this->render('enseignant/index.html.twig', [

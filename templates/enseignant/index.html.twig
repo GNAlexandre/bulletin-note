@@ -8,6 +8,25 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="page_acceuil">Acceuil</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/logout">Deconnexion</a>
+            </li>
+        </ul>
+    </div>
+</nav><br>
+
+
+<!-- Fin du Bootstrap-->
+
+<body class="body2">
 <div class="example-wrapper">
     <h1>Enseignant :✅</h1>
 
@@ -20,11 +39,22 @@
             <td> Matiere de l'Enseignant</td>
         </tr>
 
-    {% for entite in Enseignants %}
+    {% for entite in Enseignants[0] %}
 
         <tr>
             <td>{{ entite.name }}</td>
-            <td>{{ entite.id_matiere }}</td>
+
+            {% for entite2 in Enseignants[1]  %}
+
+                {% if entite.getId_Matiere == entite2.getId %}
+
+                    <td>{{ entite2.getNameMatiere }}</td>
+
+                {% endif %}
+
+
+            {% endfor %}
+
 
 
         </tr>
@@ -33,4 +63,5 @@
     {% endfor %}
     </table>
 </div>
+</body>
 {% endblock %}
