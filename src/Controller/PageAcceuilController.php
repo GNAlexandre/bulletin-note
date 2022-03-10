@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Appartenir;
+use App\Entity\Classe;
 use App\Entity\Eleve;
 use App\Entity\Enseignant;
 use App\Entity\Matiere;
@@ -21,15 +23,26 @@ class PageAcceuilController extends AbstractController
     {
         $Login=array($em->getRepository(Enseignant::class)->findOneBy(['name' => $user->getUserIdentifier()]));
         //On arrive à stocker ici les informations de l'enseignant trouver à partir de son identification login
-        dump($Login);
-        //$matiere=($em->getRepository(Matiere::class)->findOneBy(['id' => $Login[0][Id_Matiere]]));
-        //$Login[0]->id_matiere =$matiere;
+
 
         if ($Login[0] == null){ //si il n'y a pas d'enseignant dans login alors c forcement un eleve donc on recherche par rapport au nom
                                 // et non il n'y peu pas avoir 2 personne eleve comme professeur avec le meme nom
             $Login=array($em->getRepository(Eleve::class)->findOneBy(['nom' => $user->getUserIdentifier()]));
         }
+        else{
+            $Login[1]=$em->getRepository(Matiere::class)->findOneBy(['id' => $Login[0]->getId()]);
+            $Classe[0] = $em->getRepository(Appartenir::class)->findBy(['id_enseignant_ext' => $Login[0]->getId()]);
 
+            $nb=0;
+            $Classe[1]=[];
+            foreach ($Classe[0] as $classe){
+                $Classe[1][$nb]= $em->getRepository(Classe::class)->findOneBy(['id' => $classe->getIdClasseExt()]);
+                $nb++;
+            }
+            dump($Classe);
+
+        }
+        dump($Login);
 
 
         return $this->render('page_acceuil/index.html.twig', [

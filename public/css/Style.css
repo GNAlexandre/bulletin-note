@@ -71,10 +71,13 @@ body {
 td /* Toutes les cellules des tableaux... */
 {
     border: 1px solid black; /* auront une bordure de 1px */
-    background: red;
+    background: grey;
 }
 
 .lien{
     border: 1px solid black; /* auront une bordure de 1px */
     background: white;
+}
+table{
+    margin: auto;
 }

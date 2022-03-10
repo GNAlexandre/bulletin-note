@@ -12,25 +12,42 @@
     <h1>Page des Eleves✅</h1>
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') %} {# permet de verifier la connection #}
-        <p>Username: {{ app.user.username }}</p>
+        <p>Username: {{ Affichage[1] }}</p>
     {% endif %}
     <table>
         <tr>
-            <td> Nom </td>
-            <td> Prenom</td>
+            <td> Matiere </td>
+            <td> Note</td>
+            <td> Date du Control</td>
         </tr>
 
-        {% for entite in Eleve  %}
+        {% for entite in Affichage[4][0]  %}
 
-            <tr>
-                <td>{{ entite.nom }}</td>
-                <td>{{ entite.prenom }}</td>
+        <tr>
+            <td>{{ entite.getNameMatiere }}</td>
+
+            {% for entite2 in Affichage[3][0]  %}
+
+                {% if entite.id == entite2.getIdMatiereExt %}
+
+                <td>{{ entite2.note }}</td>
+                <td>{{ entite2.getDateControle|date('d/m/Y') }}</td>
+
+                {% endif %}
 
 
-            </tr>
+            {% endfor %}
 
 
+        </tr>
         {% endfor %}
+
+
+
+
+
+
+
     </table>
 
 </div>
