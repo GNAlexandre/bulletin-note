@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegisterNoteController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ path('page_acceuil') }}">Acceuil</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/logout">Deconnexion</a>
+                </li>
+            </ul>
+        </div>
+    </nav><br>
+
+
+    <!-- Fin du Bootstrap-->
+<body class="body2">
+<div class="example-wrapper">
+    <h1> Bienvenu dans la Classe {{ id }}</h1>
+    <form method="POST">
+    <table>
+        <tr>
+            <td> Nom </td>
+            <td> Prenom</td>
+            <td> Ajouter une note</td>
+        </tr>
+
+
+        {% for entite in Classe  %}
+        <tr>
+
+            <td>{{ entite.getNom }}</td>
+            <td>{{ entite.getPrenom() }}</td>
+            <td>
+                <label for="">Classe</label>
+                <input type="text" name="Note_{{ entite.getId }}">
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+        <input type="submit">
+    </form>
+</div>
+</body>
+{% endblock %}
