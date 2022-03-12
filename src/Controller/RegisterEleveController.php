@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Eleve;
 use App\Entity\Enseignant;
+use App\Entity\Matiere;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,8 +16,12 @@ class RegisterEleveController extends AbstractController
     /**
      * @Route("/register_eleve", name="register_eleve")
      */
-    public function addProjet(Request $request, EntityManagerInterface $entityManager): Response
+    public function addProjet(Request $request, EntityManagerInterface $em): Response
     {
+        //Recuperation de la liste complete des eleves pour pouvoir les supprimers en dessous du form
+        $Eleve=$em->getRepository(Eleve::class)->findAll();
+        dump($Eleve);
+
 
         //Récupération des données récupéré en POST
         $get = $request->request->all();
@@ -26,7 +31,7 @@ class RegisterEleveController extends AbstractController
             //Ajout de mon entité
             $projet = new Eleve();
 
-            $projet->setNom($get['prenom']);
+            $projet->setNom($get['prenom']); // j'inverse express ici car c le cas dans la base de donnée sachant que l'identification se fait à partir du prenom qu'on considere unique
             $projet->setPrenom($get['nom']);
             $projet->setRole("Eleve");
             $projet->setPassword("test");
@@ -34,10 +39,12 @@ class RegisterEleveController extends AbstractController
 
 
 
-            $entityManager->persist($projet); //prépare pour l'enregistrement dans la base de données
+            $em->persist($projet); //prépare pour l'enregistrement dans la base de données
 
-            $entityManager->flush(); //ça liquide tout, la chasse d'eau qwa
+            $em->flush(); //ça liquide tout, la chasse d'eau qwa
         }
-        return $this->render('register_eleve/index.html.twig');
+        return $this->render('register_eleve/index.html.twig',[
+            "Eleve"=>$Eleve
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Eleve;
 use App\Entity\User;
 use App\Form\RegistrationControllerType;
 use App\Form\RegistrationFormType;
@@ -19,6 +20,9 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        $Userexistant=$entityManager->getRepository(User::class)->findAll();
+        dump($Userexistant);
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -41,6 +45,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'Userexistant'=>$Userexistant
         ]);
     }
 }

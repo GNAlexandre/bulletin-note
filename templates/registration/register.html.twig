@@ -37,6 +37,37 @@
 
         <button type="submit" class="btn">Enregister</button>
     {{ form_end(registrationForm) }}
+    <br>
+    <br>
+    <h1>Liste des Profils existants :</h1>
+    <table>
+        <tr>
+            <td> Nom de L'User</td>
+            <td> Suppression de L'User</td>
+
+        </tr>
+
+        {% for entite in Userexistant %}
+
+            <tr>
+                <td>{{ entite.getUsername }}</td>
+                <td>
+                    {% if entite.getUsername != "Directeur" %} <!--empeche suppression de directeur l'admin lui même-->
+                        <a href="{{ path('delete_user', { 'id': entite.getId }) }}">
+                            <button>Suppression</button>
+                        </a><!--Redirection vers autre page grâce à la route-->
+                    {% endif %}
+                </td>
+
+
+
+
+            </tr>
+
+
+        {% endfor %}
+    </table>
+
 </body>
 
 {% endblock %}

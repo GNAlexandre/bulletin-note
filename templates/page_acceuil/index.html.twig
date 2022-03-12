@@ -9,7 +9,7 @@
 </style>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="page_acceuil">Acceuil</a>
+        <a class="navbar-brand" href="{{ path('page_acceuil') }}">Acceuil</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,7 +30,18 @@
     <h1>Bienvenu
         {% if Login[0]!=null and Login[0].role=="Enseignant" %} <!--Si c'est un professeur-->
             {{ Login[0].name }} <br>
-            Role {{ Login[0].role }} ({{ Login[1].getNameMatiere}})
+            Role {{ Login[0].role }} ({{ Login[1].getNameMatiere}})<br><br>
+
+            {% for entite in Classe[1] %}
+
+                <a href="{{ path('register_note', { 'id': entite.getId }) }}">
+                    <button>Classe N°{{ entite.getNumero }} Annee {{ entite.getAnnee }}</button>
+                </a><!--Redirection vers autre page grâce à la route--><br>
+
+
+            {% endfor %}
+
+
 
         {% endif %}
 
@@ -44,12 +55,15 @@
 
 
         {% if is_granted('ROLE_ADMIN') %} {# permet de verifier si s'est un ADMIN et donc le directeur #}
-            Monsieur le Directeur </h1>
+            Monsieur le Directeur </h1><br>
         <ul>
-            <li><code><a href="{{ '/enseignant'}}">Liste des Enseignants</a></code></li><!--Redirection vers autre page grâce à la route-->
+            <h2>Creation de nouvelle entite</h2>
             <li><code><a href="{{ '/register'}}">Ajouter une nouvelle entite</a></code></li><!--Redirection vers autre page grâce à la route-->
             <li><code><a href="{{ '/register_prof'}}">Ajouter un enseignant</a></code></li><!--Redirection vers autre page grâce à la route-->
             <li><code><a href="{{ '/register_eleve'}}">Ajouter un eleve</a></code></li>
+            <br>
+            <h2>Association d'entite</h2>
+            <li><code><a href="{{ '/enseignant'}}">Ajouter un Enseignants à une Classe</a></code></li><!--Redirection vers autre page grâce à la route-->
         </ul>
         {% endif %}
 
