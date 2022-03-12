@@ -37,6 +37,44 @@
         </div>
         <input type="submit">
     </form>
+    <br>
+    <br>
+    <h1>Liste des Enseignants existants :</h1>
+    <table>
+        <tr>
+            <td> Nom de l'Enseignant</td>
+            <td> Matiere de l'Enseignant</td>
+            <td> Suppression de l'Enseignant</td>
+        </tr>
+
+        {% for entite in Enseignants[0] %}
+
+            <tr>
+                <td>{{ entite.name }}</td>
+
+                {% for entite2 in Enseignants[1]  %}
+
+                    {% if entite.getId_Matiere == entite2.getId %}
+
+                        <td>{{ entite2.getNameMatiere }}</td>
+                        <td>
+                            <a href="{{ path('delete', { 'id': entite.getId }) }}">
+                                <button>Suppression</button>
+                            </a><!--Redirection vers autre page grâce à la route-->
+                        </td>
+
+                    {% endif %}
+
+
+                {% endfor %}
+
+
+
+            </tr>
+
+
+        {% endfor %}
+    </table>
 </body>
 {% endblock %}
 

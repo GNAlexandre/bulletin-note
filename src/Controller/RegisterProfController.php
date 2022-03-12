@@ -19,6 +19,14 @@ class RegisterProfController extends AbstractController
      */
     public function addProjet(Request $request, EntityManagerInterface $em): Response
     {
+        //recuperation de la liste des professeurs et leurs matieres pour faire une liste de suppression
+        $Enseignants[0]=$em->getRepository(Enseignant::class)->findAll();
+        $nb=0;
+        $Enseignants[1]=[];
+        foreach ($Enseignants[0] as $enseignant){
+            $Enseignants[1][$nb]= $em->getRepository(Matiere::class)->findOneBy(['id' => $enseignant->getId_Matiere()]);
+            $nb++;
+        }
 
         //Récupération des données récupéré en POST
         $get = $request->request->all();
@@ -43,8 +51,9 @@ class RegisterProfController extends AbstractController
             $projet = new Enseignant();
             $projet->setName($get['name']);
             $projet->setId_Matiere($info[0]->getId());
-            $projet->setRole("Enseignant");
-            $projet->setPassword("test");
+            $projet->setRole("Enseignant");//Role important pour l'affichage de la page d'accceuil
+            $projet->setPassword("test");//aucune utilité car le login ce fait grâce à une nouvelle table implementer grace à symfony mais déjà prévue au départ
+
             $em->persist($projet); //prépare pour l'enregistrement dans la base de données
             $em->flush(); //ça liquide tout, la chasse d'eau qwa
 
@@ -59,6 +68,8 @@ class RegisterProfController extends AbstractController
 
 
         }
-        return $this->render('register_prof/index.html.twig');
+        return $this->render('register_prof/index.html.twig',[
+            "Enseignants"=>$Enseignants
+        ]);
     }
 }

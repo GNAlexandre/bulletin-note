@@ -9,7 +9,7 @@
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="page_acceuil">Acceuil</a>
+    <a class="navbar-brand" href="{{ path('page_acceuil') }}">Acceuil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -28,15 +28,17 @@
 
 <body class="body2">
 <div class="example-wrapper">
-    <h1>Enseignant :✅</h1>
+    <h1>Ajout d'une Classe :✅</h1>
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') %} {# permet de verifier la connection #}
         <p>Username: {{ app.user.username }}</p>
     {% endif %}
+    <form method="POST">
     <table>
         <tr>
             <td> Nom de l'Enseignant</td>
             <td> Matiere de l'Enseignant</td>
+            <td> Ajout de Classe</td>
         </tr>
 
     {% for entite in Enseignants[0] %}
@@ -49,6 +51,10 @@
                 {% if entite.getId_Matiere == entite2.getId %}
 
                     <td>{{ entite2.getNameMatiere }}</td>
+                    <td>
+                        <label for="">Numero de Classe</label>
+                        <input type="number" name="Enseignant_{{ entite.getId }}">
+                    </td>
 
                 {% endif %}
 
@@ -59,9 +65,11 @@
 
         </tr>
 
-
     {% endfor %}
-    </table>
+    </table><br>
+    <input type="submit">
+    </form><br><br>
+
 </div>
 </body>
 {% endblock %}
