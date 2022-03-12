@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Appartenir;
+use App\Entity\Classe;
 use App\Entity\Enseignant;
 use App\Entity\Matiere;
 use App\Entity\Note;
@@ -54,6 +55,17 @@ class EnseignantController extends AbstractController
 
                     $em->persist($Projet); //prépare pour l'enregistrement dans la base de données
                     $em->flush(); //ça liquide tout, la chasse d'eau qwa
+
+                    $verification_existance_classe= $em->getRepository(Classe::class)->findOneBy(['id' => $classe]);//si la classe n'existe pas on la crée
+                    if ($verification_existance_classe==null){
+                        $NewClasse= new Classe();
+                        $NewClasse->setNumero($classe);
+                        $NewClasse->setAnnee(1);//on commene toujours à 1
+                        $NewClasse->setNombreEleve(30);
+
+                        $em->persist($NewClasse); //prépare pour l'enregistrement dans la base de données
+                        $em->flush(); //ça liquide tout, la chasse d'eau qwa
+                    }
                 }
 
             }
